@@ -12,16 +12,20 @@
 ```yaml
 service_name: <サービス名をここに記入>
 infra:
-  url: <infraリポのGitHub URL（例: https://github.com/ishii2025buziness/k12-network-notes）>
-  type: k12  # k12 or other
+  url: https://github.com/ishii2025buziness/k12-network-notes  # デフォルト。変える場合はここを書き換える
+  type: k12
 ```
 
 ### 2. infra submoduleを追加
 
+デフォルト（k12-network-notes）の場合：
+
 ```bash
-git submodule add <infra.url> infra
+git submodule add https://github.com/ishii2025buziness/k12-network-notes infra
 git submodule update --init --recursive
 ```
+
+別のインフラを使う場合は `service.config.yaml` の `infra.url` を変更してから上記コマンドのURLを差し替える。
 
 ### 3. app/pyproject.tomlのservice_nameを更新
 
