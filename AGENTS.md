@@ -1,38 +1,41 @@
 # Service Template
 
-このリポジトリは新サービスのひな形です。
+新サービスのひな形リポジトリ。
+
+## 初回セットアップ
+
+**BOOTSTRAP.mdが存在する場合、必ず最初にそれに従うこと。**
+
+BOOTSTRAP.mdがない = セットアップ済み。
+
+## 新サービスの作り方
+
+```bash
+gh repo create <service-name> --template ishii2025buziness/service-template --public --clone
+cd <service-name>
+git submodule update --init --recursive  # common submoduleを初期化
+```
+
+その後BOOTSTRAP.mdに従う。
 
 ## Submodules
 
-このリポジトリはgit submoduleを使っています。
+- `common/` → [pipeline-common](https://github.com/ishii2025buziness/pipeline-common)（共通contracts・ヘルパー）
+- `infra/` → bootstrap時に設定するインフラリポ
 
-### セットアップ
-```bash
-git clone --recursive <this-repo>
-# または clone後に
-git submodule update --init --recursive
-```
+### submodule操作
 
-### submodule更新
 ```bash
-git submodule update --remote
-```
+# common更新
+git submodule update --remote common
 
-### infraの差し替え（インフラ変更時）
-```bash
-git submodule set-url infra <new-infra-repo-url>
-git submodule update --remote
+# infra更新
+git submodule update --remote infra
 ```
 
 ## 構成
 
-- `app/` — サービス本体のコード
-- `common/` — 共通contracts・ヘルパー（pipeline-common）
-- `infra/` — インフラwiring（k12-network-notes）
-
-## 新サービス作成手順
-
-1. このリポをclone（--recursive）
-2. `app/` をサービス名に合わせて編集
-3. `common/` はそのまま使用（JobResult, ArtifactStore等）
-4. `infra/` の中のwiring定義をコピー・編集してサービス固有のwiring追加
+- `app/` — サービス本体（run/smoke/check CLI）
+- `common/` — 共通ライブラリ（JobResult, ArtifactStore等）
+- `infra/` — インフラwiring（bootstrap後に設定）
+- `service.config.yaml` — サービス設定（bootstrap後に生成）
