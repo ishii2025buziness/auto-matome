@@ -7,9 +7,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy source
-COPY . /app
+# ビルド時は app/ common/ container/ を build context として渡すこと
+# 例: rsync -av --exclude=infra --exclude=.git . k12:~/build/{{SERVICE_NAME}}/
+#     podman build -f container/Containerfile -t {{SERVICE_NAME}}:local .
+COPY app/ /app/app/
+COPY common/ /app/common/
+COPY container/ /app/container/
 
-WORKDIR /app
+WORKDIR /app/app
 
 # Install Python dependencies
 RUN python -m venv .venv \
