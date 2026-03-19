@@ -42,6 +42,12 @@ host wiring の変更が必要なら、infra 本体 repo 側で commit / review 
 `infra/` のマウント定義を読み、コンテナの `/data` がホストのどこにマウントされるかを確認する。
 `service.config.yaml` の `artifact_root` をそのパスに合わせること。
 
+確認先の目安:
+
+- `infra/nixos/modules/` の service module
+- `infra/nixos/hosts/` の host import / enable
+- `infra/containers/` の compose, Containerfile, systemd 関連ファイル
+
 ### 4. app/pyproject.tomlのservice_nameを更新
 
 `app/pyproject.toml` の `name = "service-name"` を実際のサービス名に変更。
