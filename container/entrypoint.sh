@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
-# Service entrypoint template
-# サービス固有の処理（auth設定等）はこのファイルの上部に追加する
+# Auto Matome container entrypoint
 set -euo pipefail
 
 SERVICE_NAME=auto-matome
-PACKAGE_DIR=/app
+PACKAGE_DIR=/app/app
 LOG_FILE="/data/pipeline-$(date +%Y%m%d).log"
+
+# Set up notebooklm auth from mounted /auth volume
+if [ -d /auth/notebooklm ]; then
+    mkdir -p /root/.notebooklm
+    # Copy storage state (writable, Playwright updates it)
+    cp -r /auth/notebooklm/. /root/.notebooklm/
+fi
 
 # Load .env if present
 if [ -f /auth/.env ]; then
@@ -32,7 +38,8 @@ else
     cmd=(python -m cli run)
 fi
 
-PYTHONPATH=/app/src \
+AUTO_MATOME_DEPLOY_SITE=1 \
+    PYTHONPATH=/app/common/src:/app/app/src \
     "${cmd[@]}" 2>&1 | tee -a "$LOG_FILE"
 
 echo "=== $SERVICE_NAME end: $(date -Iseconds) ===" | tee -a "$LOG_FILE"
