@@ -23,6 +23,23 @@ python -m cli check  # 設定・依存の検証
 コンテナ起動時の最終コマンドは `python -m cli run` であること。
 `container/entrypoint.sh` をひな形として使い、この部分は変えない。
 
+### Build definition ownership
+
+`Containerfile` と `entrypoint.sh` の正本は service repo に置くこと。
+サービス固有の build/run 定義を infra repo 側だけに持たない。
+
+### Deploy boundary
+
+host 固有の wiring は対応する infra repo が持つこと。
+例:
+
+- systemd / NixOS unit
+- mount path
+- secret 配置
+- port / reverse proxy / firewall
+
+service repo 内の `infra/` は参照用であり、編集の正本ではない。
+
 ## 独自でよい（サービスごとに異なる）
 
 - パイプラインの中身（何を収集・処理・出力するか）

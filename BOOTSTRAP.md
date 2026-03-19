@@ -23,7 +23,7 @@ infra:
   type: k12
 ```
 
-### 2. infra submoduleを追加
+### 2. infra参照を追加
 
 デフォルト（k12-network-notes）の場合：
 
@@ -33,6 +33,9 @@ git submodule update --init --recursive
 ```
 
 別のインフラを使う場合は `service.config.yaml` の `infra.url` を変更してから上記コマンドのURLを差し替える。
+
+これは deploy 先インフラを近くで参照するためのものであり、編集の正本を service repo に持つためではない。
+host wiring の変更が必要なら、infra 本体 repo 側で commit / review すること。
 
 ### 3. infraのデータパスを確認する
 

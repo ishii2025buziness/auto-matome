@@ -31,6 +31,21 @@
 **理由:** インフラが変わったとき（K12 → VPS等）にテンプレ自体を
 作り直さずに済むようにするため。infra submoduleの向き先を差し替えるだけで対応できる。
 
+### サービス固有の build 定義は service repo に置く
+
+**理由:** `Containerfile` や `entrypoint.sh` はサービス自身の正本であり、
+host 固有 wiring とは責務が異なるため。各サービス repo に残した方が変更理由が追いやすい。
+
+### host wiring は infra repo の責務とする
+
+**理由:** systemd、mount、port、secret 配線、NixOS module は host 側の状態そのものであり、
+サービス repo に混ぜると責務が曖昧になるため。
+
+### infra submodule は参照用であり、編集の正本ではない
+
+**理由:** 近くに置いて参照する利便性はあるが、実際の変更単位は infra 本体 repo にある。
+submodule を編集場所と見なすと commit/push の単位が曖昧になりやすい。
+
 ### docs/ による progressive disclosure
 
 **理由:** AGENTS.mdにすべての情報を書くとコンテキストが膨大になる。

@@ -21,7 +21,7 @@ git submodule update --init --recursive  # common submoduleを初期化
 ## Submodules
 
 - `common/` → [pipeline-common](https://github.com/ishii2025buziness/pipeline-common)（共通contracts・ヘルパー）
-- `infra/` → bootstrap時に設定するインフラリポ
+- `infra/` → bootstrap時に設定するインフラリポ（参照用）
 
 ### submodule操作
 
@@ -38,7 +38,7 @@ git submodule update --remote infra
 - `app/` — サービス本体（run/smoke/check CLI）
 - `common/` — 共通ライブラリ（JobResult, ArtifactStore等）
 - `container/` — Containerfile・entrypoint.shひな形
-- `infra/` — インフラwiring（bootstrap後に設定）
+- `infra/` — インフラ参照用ディレクトリ（bootstrap後に設定）
 - `docs/` — 設計・契約ドキュメント
 - `skills/` — サービス固有スキル
 - `progress/current.md` — 進捗・ハンドオフ
@@ -48,5 +48,6 @@ git submodule update --remote infra
 
 - `docs/contracts.md` — **実装時に必ず確認すること**。強制する契約と独自でよい部分を定義。
 - `docs/architecture.md` — このテンプレートの設計意図と決定理由。
+- `docs/deploy.md` — service repo / infra repo / host の責務と deploy 手順。
 
 将来のエージェントが必要とする知識（設計決定の理由、契約、運用ルール等）は`docs/`以下に書いてAGENTS.mdから参照せよ。一時的な作業メモや実装詳細は残さない。
