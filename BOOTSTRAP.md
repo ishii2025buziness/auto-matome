@@ -18,6 +18,7 @@
 
 ```yaml
 service_name: <サービス名をここに記入>
+artifact_root: .artifacts
 infra:
   url: https://github.com/ishii2025buziness/k12-network-notes  # デフォルト。変える場合はここを書き換える
   type: k12
@@ -39,15 +40,15 @@ host wiring の変更が必要なら、infra 本体 repo 側で commit / review 
 ### 3. infraのデータパスを確認する
 
 `infra/` のマウント定義を読み、コンテナの `/data` がホストのどこにマウントされるかを確認する。
-`app/src/pipeline.py` の `ArtifactStore` の `root_dir` をそのパスに合わせること。
+`service.config.yaml` の `artifact_root` をそのパスに合わせること。
 
 ### 4. app/pyproject.tomlのservice_nameを更新
 
 `app/pyproject.toml` の `name = "service-name"` を実際のサービス名に変更。
 
-### 5. app/src/pipeline.py のpipeline名を更新
+### 5. app/src/pipeline.py の job 名を更新
 
-`pipeline="service-name"` を実際のサービス名に変更。
+`service-name` のダミー値を実際のサービス名に変更。
 
 ### 6. このファイルを削除
 
