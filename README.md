@@ -5,7 +5,7 @@
 - `app/` — Pythonサービス本体（run/smoke/check CLI）
 - `common/` — 共通contracts（pipeline-common submodule）
 - `container/` — サービス側が正本として持つ `Containerfile` / `entrypoint.sh`
-- `infra/` — deploy先インフラの参照用ディレクトリ
+- `infra/` — deploy先インフラの参照用 clone
 - `docs/` — 設計、契約、deploy workflow
 
 ## Responsibility Split

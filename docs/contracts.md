@@ -39,6 +39,7 @@ host 固有の wiring は対応する infra repo が持つこと。
 - port / reverse proxy / firewall
 
 service repo 内の `infra/` は参照用であり、編集の正本ではない。
+service repo の git 管理対象にも含めない。
 
 ## 独自でよい（サービスごとに異なる）
 

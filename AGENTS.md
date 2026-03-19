@@ -21,16 +21,16 @@ git submodule update --init --recursive  # common submoduleを初期化
 ## Submodules
 
 - `common/` → [pipeline-common](https://github.com/ishii2025buziness/pipeline-common)（共通contracts・ヘルパー）
-- `infra/` → bootstrap時に設定するインフラリポ（参照用）
+- `infra/` → bootstrap時に clone する関連インフラrepo（参照用、submoduleではない）
 
-### submodule操作
+### dependency操作
 
 ```bash
 # common更新
 git submodule update --remote common
 
 # infra更新
-git submodule update --remote infra
+git -C infra pull --ff-only
 ```
 
 ## 構成
