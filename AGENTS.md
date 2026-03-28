@@ -79,3 +79,14 @@ A task is done only when all of the following are true:
 - `progress/current.md` is updated.
 - `./tools/harness self-check` has passed.
 - Daily pipeline produces >= 3 Japanese articles from overseas sources.
+
+## Service Manifest
+
+`service.manifest.yaml` はSE/PEの境界インタフェース。
+**このファイルが存在しない場合、作業開始前に必ず生成すること。**
+
+- スキーマ: https://github.com/ishii2025buziness/k12-network-notes/blob/main/schemas/service-manifest.schema.json
+- 宣言するもの: `name`, `input`, `process`, `output`, `successCriteria`
+- 宣言しないもの: schedule / secrets / metrics / alerts / deploy（Platform側の責務）
+
+生成手順: `app/src/pipeline.py` 等を読んでスキーマに従いYAMLを生成し、CIのvalidationが通ることを確認する。
